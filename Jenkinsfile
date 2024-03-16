@@ -1,4 +1,3 @@
-
 pipeline {
     agent {
         docker {
@@ -6,42 +5,34 @@ pipeline {
         }
     }
     stages {
-        stage('Clone Repository') {
+        stage('Clone repository') {
             steps {
-                git branch: 'main', url: 'https://github.com/CIVILIFIER/PES2UG22CS824_jenkins.git'
+                git branch: 'main', url: 'https://github.com/YOUR_USER/YOUR_REPO.git'
             }
         }
-        stage('Install Dependencies') {
+        stage('Install dependencies') {
             steps {
                 sh 'npm install'
             }
         }
-        stage('Build Application') {
+        stage('Build application') {
             steps {
                 sh 'npm run build'
             }
         }
-        stage('Test Application') {
+        stage('Test application') {
             steps {
                 sh 'npm test'
             }
         }
-        stage('Push Docker Image') {
+        stage('Push Docker image') {
             steps {
                 script {
-                    def buildNumber = env.BUILD_NUMBER
-                    sh "docker build -t CIVILIFIER/<image>:$buildNumber ."
-                    sh "docker push CIVILIFIER/<image>:$buildNumber"
+                    def dockerImage = docker.build("YOUR_USER/YOUR_IMAGE:${env.BUILD_NUMBER}")
+                    dockerImage.push()
                 }
             }
         }
     }
-    post {
-        always {
-            junit 'target/surefire-reports/*.xml'
-        }
-        failure {
-            echo 'Pipeline failed'
-        }
-    }
 }
+
