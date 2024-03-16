@@ -7,7 +7,7 @@ pipeline {
     stages {
         stage('Clone repository') {
             steps {
-                git branch: 'main', url: 'https://github.com/YOUR_USER/YOUR_REPO.git'
+                git branch: 'main', url: 'https://github.com/CIVILIFIER/PES2UG22CS824_jenkins.git'
             }
         }
         stage('Install dependencies') {
@@ -28,7 +28,7 @@ pipeline {
         stage('Push Docker image') {
             steps {
                 script {
-                    def dockerImage = docker.build("YOUR_USER/YOUR_IMAGE:${env.BUILD_NUMBER}")
+                    def dockerImage = docker.build("CIVILIFIER/PES2UG22CS824:${env.BUILD_NUMBER}")
                     dockerImage.push()
                 }
             }
