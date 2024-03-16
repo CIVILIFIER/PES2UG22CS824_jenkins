@@ -1,38 +1,37 @@
 pipeline {
-    agent {
-        docker {
-            image 'node:14'
-        }
-    }
+    agent any
+    
     stages {
         stage('Clone repository') {
             steps {
-                git branch: 'main', url: 'https://github.com/CIVILIFIER/PES2UG22CS824_jenkins.git'
+                checkout([$class: 'GitSCM', branches: [[name: '*/main']], userRemoteConfigs: [[url: 'https://github.com/CIVILIFIER/PES2UG22CS824_jenkins']]])
             }
         }
-        stage('Install dependencies') {
+        
+        stage('Build') {
             steps {
-                sh 'npm install'
+                build 'PES2UG22CS824-1'
+                sh 'g++ main.cpp -o output'
             }
         }
-        stage('Build application') {
+        
+        stage('Test') {
             steps {
-                sh 'npm run build'
+                sh './output'
             }
         }
-        stage('Test application') {
+        
+        stage('Deploy') {
             steps {
-                sh 'npm test'
-            }
-        }
-        stage('Push Docker image') {
-            steps {
-                script {
-                    def dockerImage = docker.build("CIVILIFIER/PES2UG22CS824:${env.BUILD_NUMBER}")
-                    dockerImage.push()
-                }
+                echo 'deploy'
+                // Add deployment steps here
             }
         }
     }
+    
+    post {
+        failure {
+            echo 'Pipeline failed'
+        }
+    }
 }
-
