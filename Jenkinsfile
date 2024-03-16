@@ -4,7 +4,9 @@ pipeline {
     stages {
         stage('Clone repository') {
             steps {
-                checkout([$class: 'GitSCM', branches: [[name: '*/main']], userRemoteConfigs: [[url: 'https://github.com/CIVILIFIER/PES2UG22CS824_jenkins']]])
+                checkout([$class: 'GitSCM',
+                          branches: [[name: '**/main']], 
+                          userRemoteConfigs: [[url: 'https://github.com/CIVILIFIER/PES2UG22CS824_jenkins']]])
             }
         }
         
@@ -12,22 +14,19 @@ pipeline {
             steps {
                 // Assuming hello.cpp is in the root of your repository
                 build 'PES2UG22CS824-1'
-                sh 'g++ hello.cpp -o output'
-                echo 'Build stage Successful'
+                sh 'g++ main/hello.cpp -o output'
             }
         }
         
         stage('Test') {
             steps {
                 sh './output'
-                echo 'Test Stage Successful'
             }
         }
         
         stage('Deploy') {
             steps {
-                echo 'Deployment'
-                // Add deployment steps here
+                echo 'deploy'
             }
         }
     }
