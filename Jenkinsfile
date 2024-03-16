@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Clone repository') {
             steps {
-                git branch: 'main',
+                git branch: '*/main',
                 url: 'https://github.com/CIVILIFIER/PES2UG22CS824_jenkins'
             }
         }
@@ -12,6 +12,7 @@ pipeline {
         stage('Build') {
             steps {
                 // Assuming hello.cpp is in the root of your repository
+                build 'PES2UG22CS824-1'
                 sh 'g++ hello.cpp -o output'
                 echo 'Build stage Successful'
             }
