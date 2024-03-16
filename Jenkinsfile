@@ -4,8 +4,7 @@ pipeline {
     stages {
         stage('Clone repository') {
             steps {
-                git branch: '*/main',
-                url: 'https://github.com/CIVILIFIER/PES2UG22CS824_jenkins'
+                checkout([$class: 'GitSCM', branches: [[name: '*/main']], userRemoteConfigs: [[url: 'https://github.com/CIVILIFIER/PES2UG22CS824_jenkins']]])
             }
         }
         
