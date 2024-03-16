@@ -11,8 +11,8 @@ pipeline {
         
         stage('Build') {
             steps {
-                // Assuming main.cpp is in the root of your repository
-                sh 'g++ main.cpp -o output'
+                // Assuming hello.cpp is in the root of your repository
+                sh 'g++ hello.cpp -o output'
                 echo 'Build stage Successful'
             }
         }
