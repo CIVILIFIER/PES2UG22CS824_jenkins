@@ -28,8 +28,8 @@ pipeline {
         }
         stage('Push Docker image') {
             steps {
-                sh "docker build -t CIVILIFIER/PES2UG22CS824-1:$BUILD_NUMBER ."
-                sh "docker push CIVILIFIER/PES2UG22CS824-1:$BUILD_NUMBER"
+                sh 'docker build -t CIVILIFIER/PES2UG22CS824-1:$BUILD_NUMBER .'
+                sh 'docker push CIVILIFIER/PES2UG22CS824-1:$BUILD_NUMBER'
             }
         }
     }
